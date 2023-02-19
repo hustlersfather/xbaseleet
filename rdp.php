@@ -10,280 +10,140 @@ if (!isset($_SESSION['sname']) and !isset($_SESSION['spass'])) {
 }
 $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 ?>
-<!doctype html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="files/bootstrap/3/css/bootstrap.css?1" />
-<link rel="stylesheet" type="text/css" href="files/css/flags.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-<script type="text/javascript" src="files/js/jquery.js?1"></script>
-<script type="text/javascript" src="files/bootstrap/3/js/bootstrap.js?1"></script>
-<script type="text/javascript" src="files/js/sorttable.js"></script>
-<script type="text/javascript" src="files/js/table-head.js?3334"></script>
-<script type="text/javascript" src="files/js/bootbox.min.js"></script>
-<script type="text/javascript" src="files/js/clipboard.min.js"></script>
-
-<link rel="shortcut icon" href="files/img/favicon.ico" />
-<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /> 
- <meta name="referrer" content="no-referrer" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="utf-8">
-<title>JeruxShop</title>
-</head>
-<style>
-#table {
-  .sortable
-}
-table th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
-    content: " \25BE" 
-}
-
-.label-as-badge {
-    border-radius: 0.5em;
-}
-
-body {
-    padding-top:50px;
-}
-table.floatThead-table {
-    border-top: none;
-    border-bottom: none;
-    background-color: #fff;
-}
-@media (min-width: 768px) {
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-}
-
-#mydiv {
-  height: 400px;
-  position: relative;
-}
-.ajax-loader {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto; /* presto! */
-
-}
-
-   
-    
-
-</style>
-<script type="text/javascript">
-             function ajaxinfo() {
-                $.ajax({
-                    type: 'GET',
-                    url: 'ajaxinfo.html',
-                    timeout: 10000,
-
-                    success: function(data) {
-                        if (data != '01') {
-                            var data = JSON.parse(data);
-                            for (var prop in data) {
-                                $("#" + prop).html(data[prop]).show();
-                            }
-                        } else {
-                            window.location = "logout.html";
-                        }
-                    }
-                });
-
-            }
-            setInterval(function() {
-                ajaxinfo()
-            }, 3000);
-
-            ajaxinfo();
-
-$(document).keydown(function(event){
-    if(event.which=="17")
-        cntrlIsPressed = true;
-});
-
-$(document).keyup(function(){
-    cntrlIsPressed = false;
-});
-
-var cntrlIsPressed = false;
 
 
-function pageDiv(n,t,u,x){
-  if(cntrlIsPressed){
-    window.open(u, '_blank');
-    return false;
-  }
-        var obj = { Title: t, Url: u };
-        if ( ("/"+obj.Url) != location.pathname) {
-        	if (x != 1) {history.pushState(obj, obj.Title, obj.Url);}
-        	else{history.replaceState(obj, obj.Title, obj.Url);}
-
-    	}
-      document.title = obj.Title;
-    $("#mainDiv").html('<div id="mydiv"><img src="files/img/load2.gif" class="ajax-loader"></div>').show();
-    $.ajax({
-    type:       'GET',
-    url:        'divPage'+n+'.html',
-    success:    function(data)
-    {
-        $("#mainDiv").html(data).show();
-        newTableObject = document.getElementById('table');
-        sorttable.makeSortable(newTableObject);
-        $(".sticky-header").floatThead({top:60});
-        if(x==0){ajaxinfo();}
-      }});
-    if (typeof stopCheckBTC === 'function') { 
-    var a = stopCheckBTC();
-     }
-
-}
-
-$(window).on("popstate", function(e) {
-        location.replace(document.location);
-
-});
-
-
-$(window).on('load', function() {
-$('.dropdown').hover(function(){ $('.dropdown-toggle', this).trigger('click'); });
-   pageDiv(1,'RDP - JeruxShop','rdp.html',1);
-   var clipboard = new Clipboard('.copyit');
-    clipboard.on('success', function(e) {
-      setTooltip(e.trigger, 'Copied!');
-      hideTooltip(e.trigger);
-      e.clearSelection();
-   });
-
-});
-
-
-function setTooltip(btn, message) {
-  console.log("hide-1");
-  $(btn).tooltip('hide')
-    .attr('data-original-title', message)
-    .tooltip('show');
-     console.log("show");
-}
-
-function hideTooltip(btn) {
-  setTimeout(function() {$(btn).tooltip('hide'); console.log("hide-2");}, 1000);
-}
-</script>
-		<style>
-            .navbar {
-                background-color: #001f3f;
-            }
-        </style>
-<body style="padding-top: 70px; padding-bottom: 70px;">
-
-<nav class="navbar navbar-default navbar-fixed-top ">
-  <div class="container-fluid">
-    <div class="navbar-header">
-       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-    <div class="navbar-brand" onClick="location.href='index.html'" onMouseOver="this.style.cursor='pointer'"><b><span class="glyphicon glyphicon-fire"></span> Jerux SHOP <small><span class="glyphicon glyphicon-refresh"></span></small></b></div></div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="topFixedNavbar1">
-      <ul class="nav navbar-nav">
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hosts <span class="glyphicon glyphicon-chevron-down" id="alhosts"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="rdp.html" onclick="pageDiv(1,'RDP - JeruxShop','rdp.html',0); return false;">RDPs <span class="label label-primary label-as-badge" id="rdp"></span></a></li>
-            <li><a href="cPanel.html" onclick="pageDiv(2,'cPanel - JeruxShop','cPanel.html',0); return false;">cPanels <span class="label label-primary label-as-badge" id="cpanel"></span></a></li>
-            <li><a href="shell.html" onclick="pageDiv(3,'Shell - JeruxShop','shell.html',0); return false;">Shells <span class="label label-primary label-as-badge" id="shell"></span></a></li>  
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Send <span class="glyphicon glyphicon-chevron-down" id="mail"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="mailer.html" onclick="pageDiv(4,'PHP Mailer - JeruxShop','mailer.html',0); return false;">Mailers <span class="label label-primary label-as-badge" id="mailer"></span></a></li>
-            <li><a href="smtp.html" onclick="pageDiv(5,'SMTP - JeruxShop','smtp.html',0); return false;">SMTPs <span class="label label-primary label-as-badge" id="smtp"></span></a></li>  
-          </ul>
-        </li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Leads <span class="glyphicon glyphicon-chevron-down" id="all_leads"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="leads.html" onclick="pageDiv(6,'Leads - JeruxShop','leads.html',0); return false;">Leads <span class="label label-primary label-as-badge" id="leads"></span></a></li>
-          </ul>
-        </li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accounts <span class="glyphicon glyphicon-chevron-down" id="accounts"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="premium.html" onclick="pageDiv(7,'Premium/Dating/Shop - JeruxShop','premium.html',0); return false;">Premium/Dating/Shop <span class="label label-primary label-as-badge" id="premium"></span></a></li>
-            <li><a href="banks.html" onclick="pageDiv(8,'Banks - JeruxShop','banks.html',0); return false;">Banks <span class="label label-primary label-as-badge" id="banks"></span></a></li>  
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Others <span class="glyphicon glyphicon-chevron-down" id="accounts"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="scampage.html" onclick="pageDiv(9,'Scampages - JeruxShop','scampage.html',0); return false;">Scampage <span class="label label-primary label-as-badge" id="scams"></span></a></li>
-            <li><a href="tutorial.html" onclick="pageDiv(10,'Tutorials - JeruxShop','tutorial.html',0); return false;">Tutorial <span class="label label-primary label-as-badge" id="tutorials"></span></a></li>  
-          </ul>
-        </li>
-                      
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-                        <?php
-$uid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-$q = mysqli_query($dbcon, "SELECT resseller FROM users WHERE username='$uid'") or die(mysqli_error());
-$r         = mysqli_fetch_assoc($q);
-$reselerif = $r['resseller'];
-if ($reselerif == "1") {
-    $uid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-    $q = mysqli_query($dbcon, "SELECT soldb FROM resseller WHERE username='$uid'") or die(mysqli_error());
-    $r = mysqli_fetch_assoc($q);
-
-    echo '<li><a href="https://jerux.to/seller/index.html"><span class="badge" title="Seller Panel"><span class="glyphicon glyphicon-cloud"></span><span id="seller"></span></span></a></li>';
-} else {
-} ?>      
-<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tickets <span id="alltickets">
-<?php
-$sze112  = mysqli_query($dbcon, "SELECT * FROM ticket WHERE uid='$uid' and seen='1'");
-$r844941 = mysqli_num_rows($sze112);
-if ($r844941 == "1") {
-    echo '<span class="label label-danger">1</span>';
-}
-?>
-</span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="tickets.html" onclick="pageDiv(11,'Tickets - JeruxShop','tickets.html',0); return false;">Tickets <span class="label label-info"><span id="tickets"></span></span>	<?php
-$s1 = mysqli_query($dbcon, "SELECT * FROM ticket WHERE uid='$uid' and seen='1'");
-$r1 = mysqli_num_rows($s1);
-if ($r1 == "1") {
-    echo '<span class="label label-success"> 1 New</span>';
-}
-?></span></a></li>
-            <li><a href="reports.html" onclick="pageDiv(12,'Reports - JeruxShop','reports.html',0); return false;">Reports <span class="label label-info"><span id="reports"></span></span> <?php
-$s1 = mysqli_query($dbcon, "SELECT * FROM reports WHERE uid='$uid' and seen='1'");
-$r1 = mysqli_num_rows($s1);
-if ($r1 == "1") {
-    echo '<span class="label label-success"> 1 New</span>';
-}
-?></span> </a></li>
-
-           </ul>
-        </li>
-
-        <li><a href="addBalance.html" onclick="pageDiv(13,'Add Balance - JeruxShop','addBalance.html',0); return false;"><span class="badge"><b><span id="balance"></span></b> <span class="glyphicon glyphicon-plus"></span><span> </a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account  <span class="glyphicon glyphicon-user"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="setting.html" onclick="pageDiv(14,'Setting - JeruxShop','setting.html',0); return false;">Setting <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
-            <li><a href="orders.html" onclick="pageDiv(15,'Orders - JeruxShop','orders.html',0); return false;">My Orders <span class="glyphicon glyphicon-shopping-cart pull-right"></span></a></li>
-            <li><a href="addBalance.html" onclick="pageDiv(13,'Add Balance - JeruxShop','addBalance.html',0); return false;">Add Balance <span class="glyphicon glyphicon-usd pull-right"></span></a></li>
-            
-            <li class="divider"></li>
-            <li><a href="logout.html" >Logout <span class="glyphicon glyphicon-off pull-right"></span></a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container-fluid -->
-</nav>
-<div id="mainDiv">
 
 
 </div>
-</body>
-</html>
+<div class="row m-3 pt-1" style="color: var(--font-color);">
+<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+<label for="country" style="margin-bottom: 10px; margin-top: 5px">Country :</label>
+<select name="country" id="country" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+<option value="">All Countries</option>
+<option value="Australia">Australia</option><option value="Belgium">Belgium</option><option value="Canada">Canada</option><option value="China">China</option><option value="France">France</option><option value="Germany">Germany</option><option value="Hong Kong">Hong Kong</option><option value="Ireland">Ireland</option><option value="Norway">Norway</option><option value="Puerto Rico">Puerto Rico</option><option value="Singapore">Singapore</option><option value="South Africa">South Africa</option><option value="South Korea">South Korea</option><option value="Spain">Spain</option><option value="Sweden">Sweden</option><option value="Switzerland">Switzerland</option><option value="Taiwan">Taiwan</option><option value="Thailand">Thailand</option><option value="United Kingdom">United Kingdom</option><option value="United States">United States</option> </select>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+<label for="hosting" style="margin-bottom: 10px; margin-top: 5px">Hosting :</label>
+<select name="detect_hosting" id="detect_hosting" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+<option value="">All</option>
+<option value="2020 Communications LLC">2020 Communications LLC</option><option value="AARON CONCRETE CONTRACTOR">AARON CONCRETE CONTRACTOR</option><option value="Amazon Technologies Inc. (AMAZON)">Amazon Technologies Inc. (AMAZON)</option><option value="Amazon Technologies Inc. (EC2)">Amazon Technologies Inc. (EC2)</option><option value="AT&T Services, Inc.">AT&T Services, Inc.</option><option value="BRET ACHTENAGEN'S SEASONAL SERVICES">BRET ACHTENAGEN'S SEASONAL SERVICES</option><option value="British Telecommunications PLC">British Telecommunications PLC</option><option value="CABLE ONE, INC.">CABLE ONE, INC.</option><option value="Charter Communications">Charter Communications</option><option value="Charter Communications Inc">Charter Communications Inc</option><option value="Chunghwa Telecom Co., Ltd.">Chunghwa Telecom Co., Ltd.</option><option value="Cologix, Inc">Cologix, Inc</option><option value="Comcast">Comcast</option><option value="Cox Communications Inc.">Cox Communications Inc.</option><option value="Fasthosts Internet Limited">Fasthosts Internet Limited</option><option value="Fusion Voice and Data Corp.">Fusion Voice and Data Corp.</option><option value="iiNet Limited">iiNet Limited</option><option value="Illinois Century Network">Illinois Century Network</option><option value="InfraCom Managed Services AB">InfraCom Managed Services AB</option><option value="Kalamazoo RESA">Kalamazoo RESA</option><option value="KOOKS HEADERS">KOOKS HEADERS</option><option value="Liberty Global B.V.">Liberty Global B.V.</option><option value="METALS ENGINEERING INC">METALS ENGINEERING INC</option><option value="Microsoft">Microsoft</option><option value="Microsoft Limited">Microsoft Limited</option><option value="MICROSOFT-CORP-MSN-AS-BLOCK">MICROSOFT-CORP-MSN-AS-BLOCK</option><option value="MIINC LP">MIINC LP</option><option value="MOREY'S DOWNTOWN BOOKS">MOREY'S DOWNTOWN BOOKS</option><option value="NTS Communications, LLC">NTS Communications, LLC</option><option value="Otava, LLC">Otava, LLC</option><option value="Ponce Site- Choice Cable TV">Ponce Site- Choice Cable TV</option><option value="Proximus NV">Proximus NV</option><option value="Rogers Communications Canada Inc.">Rogers Communications Canada Inc.</option><option value="Scaleway">Scaleway</option><option value="Shaw Communications Inc.">Shaw Communications Inc.</option><option value="TCC Technology Co., Ltd.">TCC Technology Co., Ltd.</option><option value="TELEFONICA DE ESPANA S.A.U.">TELEFONICA DE ESPANA S.A.U.</option><option value="Telia Company AB">Telia Company AB</option><option value="Tencent Cloud">Tencent Cloud</option><option value="Vast Networks">Vast Networks</option><option value="Verizon Business">Verizon Business</option><option value="Vodafone Deutschland GmbH">Vodafone Deutschland GmbH</option><option value="Vodafone Limited">Vodafone Limited</option><option value="Wide Open West">Wide Open West</option><option value="Xneelo (Pty) Ltd">Xneelo (Pty) Ltd</option><option value="zColo">zColo</option><option value="Zen Internet Ltd">Zen Internet Ltd</option> </select>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+<label for="windows" style="margin-bottom: 10px; margin-top: 5px">windows :</label>
+<select name="windows" id="windows" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+<option value="">All</option>
+<option value="10">10</option><option value="2008">2008</option><option value="2012">2012</option><option value="2016">2016</option><option value="2019">2019</option><option value="7">7</option><option value="8">8</option> </select>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-1" style="display:inline-block">
+<label for="ram" style="margin-bottom: 10px; margin-top: 5px">Ram :</label>
+<input type="search" class="form-control" id="ram" style="color: var(--font-color); background-color: var(--color-card);">
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+<label for="type" style="margin-bottom: 10px">Type :</label>
+<select name="source" id="source" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+<option value="">All</option>
+<option value="cracked">cracked</option><option value="created">created</option> </select>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-2" style="display:inline-block">
+<label for="access" style="margin-bottom: 10px; margin-top: 5px">Access :</label>
+<select name="access" id="access" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+<option value="">All</option>
+<option value="ADMIN">ADMIN</option><option value="USER">USER</option> </select>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-1" style="display:inline-block">
+<label for="seller" style="margin-bottom: 10px; margin-top: 5px">Seller :</label>
+<select name="seller" id="seller" class="form-control" style="color: var(--font-color); background-color: var(--color-card);">
+<option value="">All</option>
+<option value="Seller349">Seller349</option><option value="Seller469">Seller469</option><option value="Seller457">Seller457</option><option value="Seller306">Seller306</option> </select>
+</div>
+</div>
+<div class="row m-2 pt-3" style="color: var(--font-color); background-color: var(--color-card);">
+<div class="col-sm-12 table-responsive">
+<table id="rdp_data" class="display responsive table-hover" style="width:100%" style="color: var(--font-color); background-color: var(--color-card);">
+<thead>
+<tr>
+<th data-priority="1"></th>
+<th class="all">ID</th>
+<th data-priority="3">Country</th>
+<th data-priority="15">City</th>
+<th data-priority="14">Windows</th>
+<th data-priority="6">Ram</th>
+<th data-priority="17">Access</th>
+<th data-priority="8">Hosting</th>
+<th data-priority="9">CPU</th>
+<th data-priority="10">Warranty</th>
+<th data-priority="11">Seller</th>
+<th data-priority="12">Source</th>
+<th data-priority="13">Price</th>
+<th class="all" style="width:9% !important;">Ip BlackList</th>
+<th class="all">Check</th>
+<th data-priority="16">Added on</th>
+<th class="all">Buy</th>
+</tr>
+</thead>
+</table>
+</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-notify modal-success" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<p class="heading" id="myModalHeader"></p>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true" class="white-text">&times;</span>
+</button>
+</div>
+<div class="modal-body" id="modelbody">
+</div>
+<div class="modal-footer justify-content-center">
+<a type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="modalConfirmBuy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-sm modal-notify modal-info" role="document">
+
+<div class="modal-content text-center">
+
+<div class="modal-header d-flex justify-content-center">
+<p class="heading">Are you sure?</p>
+</div>
+
+<div class="modal-body">
+<i class='fas fa-shopping-cart fa-4x animated rotateIn'></i>
+</div>
+
+<div class="modal-footer flex-center">
+<a onClick='confirmbye()' class="btn btn-outline-info waves-effect" data-dismiss="modal">Yes</a>
+<a type="button" class="btn btn-info" data-dismiss="modal">No</a>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="modal fade top" id="modalCoupon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+<div class="modal-dialog modal-frame modal-top modal-notify modal-danger" role="document">
+
+<div class="modal-content">
+
+<div class="modal-body">
+ <div class="row d-flex justify-content-center align-items-center">
+<img src="layout/images/balance.png">
+<span class="pt-3 mx-4" style="font-size: 14 px"><b>No enough balance !</b> Please refill your balance</span>
+<a type="button" href="addBalance" onclick="window.open(this.href);return false;" class="btn btn-danger">Add Balance
+<i class="fas fa-book ml-1 white-text"></i>
+</a>
+<a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">No, thanks</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
 
