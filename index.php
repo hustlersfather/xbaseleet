@@ -20,8 +20,8 @@ $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 <script type="text/javascript" src="files/bootstrap/3/js/bootstrap.js?1"></script>
 <script type="text/javascript" src="files/js/sorttable.js"></script>
 <script type="text/javascript" src="files/js/table-head.js?3334"></script>
-<script type="text/javascript" src="files/js/bootbox.min.js"></script>
-<script type="text/javascript" src="files/js/clipboard.min.js"></script>
+<script type="text/javascript" src="assets/js/bootbox.min.js"></script>
+<script type="text/javascript" src="assets/js/clipboard.min.js"></script>
 
 <link rel="shortcut icon" href="files/img/favicon.ico" />
 <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /> 
@@ -65,28 +65,11 @@ table.floatThead-table {
   position: absolute;
   left: 0;
   top: 0;
-  right: 0;
+  right: 0; left a
   bottom: 0;
   margin: auto; /* presto! */
 
 }
-.label-primary {
-    background-color: #910606;
-}
-.btn-primary {
-    color: #ffffff;
-    background-color: #910606;
-    border-color: #910606;
-}
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    line-height: 1.1;
-    color: #910606;
-}
-
-   
-    
 
 </style>
 <script type="text/javascript">
